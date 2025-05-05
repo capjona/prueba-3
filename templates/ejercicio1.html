@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}Ejercicio 1 – Notas{% endblock %}
+
+{% block bodyclass %}ej1{% endblock %}
+
+{% block content %}
+  <h1>Formulario de Notas</h1>
+
+  <form method="post">
+    <label>Nota 1 (10–70):<br>
+      <input type="number" name="n1" min="10" max="70" required>
+    </label><br><br>
+
+    <label>Nota 2 (10–70):<br>
+      <input type="number" name="n2" min="10" max="70" required>
+    </label><br><br>
+
+    <label>Nota 3 (10–70):<br>
+      <input type="number" name="n3" min="10" max="70" required>
+    </label><br><br>
+
+    <label>Asistencia (0–100%):<br>
+      <input type="number" name="asist" min="0" max="100" required>
+    </label><br><br>
+
+    <button type="submit">Enviar</button>
+  </form>
+
+  {% if promedio is defined %}
+    <h2>Promedio: {{ promedio }} – Estado: {{ estado }}</h2>
+  {% endif %}
+
+  <p style="text-align:center">
+    <a href="{{ url_for('index') }}">Volver al menú</a>
+  </p>
+{% endblock %}

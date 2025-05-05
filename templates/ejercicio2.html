@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}Ejercicio 2 – Nombre más largo{% endblock %}
+
+{% block bodyclass %}ej2{% endblock %}
+
+{% block content %}
+  <h1>Ejercicio 2: Nombre más largo</h1>
+
+  <form method="post">
+    <label>Nombre 1:<br>
+      <input type="text" name="n1" required>
+    </label><br><br>
+
+    <label>Nombre 2:<br>
+      <input type="text" name="n2" required>
+    </label><br><br>
+
+    <label>Nombre 3:<br>
+      <input type="text" name="n3" required>
+    </label><br><br>
+
+    <button type="submit">Enviar</button>
+  </form>
+
+  {% if nombre_largo is defined %}
+    <h2>El nombre más largo es:</h2>
+    <p style="text-align:center; font-size:1.2rem;">
+      <strong>{{ nombre_largo }}</strong><br>
+      ({{ longitud }} caracteres)
+    </p>
+  {% endif %}
+
+  <p style="text-align:center">
+    <a href="{{ url_for('index') }}">Volver al menú</a>
+  </p>
+{% endblock %}
