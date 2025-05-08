@@ -11,7 +11,7 @@ def index():
 @app.route('/ejercicio1', methods=['GET', 'POST'])
 def ejercicio1():
     if request.method == 'POST':
-        # Procesamos los datos del formulario
+        # Procesa los datos del formulario
         n1 = float(request.form['n1'])
         n2 = float(request.form['n2'])
         n3 = float(request.form['n3'])
@@ -25,7 +25,7 @@ def ejercicio1():
                                 promedio=promedio,
                                 estado=estado))
 
-    # Si es GET, leer los parámetros
+    # Si es GET, lee los parámetros
     promedio = request.args.get('promedio')
     estado   = request.args.get('estado')
     # Lo pasa al template; si no están definidos, el template los ignora
