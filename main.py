@@ -6,10 +6,12 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
-# --- Ejercicio 1 con PRG ---
-@app.route('/ejercicio1', methods=['GET','POST'])
+
+# --- Ejercicio 1 con PRG  ---
+@app.route('/ejercicio1', methods=['GET', 'POST'])
 def ejercicio1():
     if request.method == 'POST':
+        # Procesamos los datos del formulario
         n1 = float(request.form['n1'])
         n2 = float(request.form['n2'])
         n3 = float(request.form['n3'])
@@ -18,51 +20,44 @@ def ejercicio1():
         promedio = round((n1 + n2 + n3) / 3, 1)
         estado   = 'APROBADO' if (promedio >= 40 and asist >= 75) else 'REPROBADO'
 
-        # Redirige con los valores en la URL
-        return redirect(url_for('resultado1',
+        # Redirigimos a la misma ruta pero pasando los resultados por query string
+        return redirect(url_for('ejercicio1',
                                 promedio=promedio,
                                 estado=estado))
-    return render_template('ejercicio1.html')
 
-@app.route('/resultado1')
-def resultado1():
+    # Si es GET, leer los parámetros
     promedio = request.args.get('promedio')
     estado   = request.args.get('estado')
-    if not promedio or not estado:
-        # Si faltan parámetros, volvemos al formulario
-        return redirect(url_for('ejercicio1'))
-    # Renderiza la misma plantilla pero ya con datos
+    # Lo pasa al template; si no están definidos, el template los ignora
     return render_template('ejercicio1.html',
                            promedio=promedio,
                            estado=estado)
 
 
-# --- Ejercicio 2 con PRG ---
-@app.route('/ejercicio2', methods=['GET','POST'])
+# --- Ejercicio 2 con PRG  ---
+@app.route('/ejercicio2', methods=['GET', 'POST'])
 def ejercicio2():
     if request.method == 'POST':
+        # Lee los tres nombres
         nombres = [
             request.form['n1'].strip(),
             request.form['n2'].strip(),
-            request.form['n3'].strip(),
+            request.form['n3'].strip()
         ]
         nombre_largo = max(nombres, key=len)
         longitud     = len(nombre_largo)
 
-        return redirect(url_for('resultado2',
+        # Redirigimos a la misma ruta con resultados en query string
+        return redirect(url_for('ejercicio2',
                                 nombre_largo=nombre_largo,
                                 longitud=longitud))
-    return render_template('ejercicio2.html')
 
-@app.route('/resultado2')
-def resultado2():
-    nl  = request.args.get('nombre_largo')
-    lon = request.args.get('longitud')
-    if not nl or not lon:
-        return redirect(url_for('ejercicio2'))
+    # En GET, lee los parámetros si existen
+    nombre_largo = request.args.get('nombre_largo')
+    longitud     = request.args.get('longitud')
     return render_template('ejercicio2.html',
-                           nombre_largo=nl,
-                           longitud=lon)
+                           nombre_largo=nombre_largo,
+                           longitud=longitud)
 
 
 if __name__ == '__main__':
